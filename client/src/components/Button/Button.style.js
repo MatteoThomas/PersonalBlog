@@ -5,9 +5,11 @@ export const StyledButton = styled(Button)`
   border: 1px transparent solid;
   border-radius: 2px;
   transition: 0.4s;
+  width: 70px;
   height: 32px;
-  margin: 0 1rem 0 0;
-  background-color: aliceblue;
+  /* margin: 0 1rem 0 0; */
+  /* background-color: aliceblue; */
+  color: black;
   &:hover {
     transition: all 0.4s;
     color: aliceblue;
@@ -21,5 +23,5 @@ export const StyledButton = styled(Button)`
 
 export const ButtonLabel = styled.label`
   font-size: 1rem;
-  color: aliceblue;
+  color: black;
 `;

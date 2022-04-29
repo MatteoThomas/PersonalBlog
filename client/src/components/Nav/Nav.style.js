@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
 export const NavbarContainer = styled.nav`
+  background-color: #1e1e1e;
+  position: fixed;
+  top: 0;
+  gap: 1rem;
   font-weight: 500;
   display: flex;
   color: aliceblue;
+  width: 100%;
+  margin: 1rem auto;
   display: flex;
-  justify-content: space-between;
-  margin: 1rem 10vw 4rem;
   &:active {
     color: #272727;
   }

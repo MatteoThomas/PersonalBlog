@@ -13,21 +13,28 @@ const Nav = () => {
       })}
 
         >
-          Dashboard
+          Web Dev
         </NavLink>
         <NavLink to="/Explore"
              style={({ isActive }) => ({
-              color: isActive ? 'transparent' : 'aliceblue',
+              color: isActive ? 'darkgray' : 'aliceblue',
             })}
             >
-          Explore
+          Graphic Design 
         </NavLink>
         <NavLink to="/Account"
-             style={({ isActive }) => ({
+            style={({ isActive }) => ({
               color: isActive ? 'transparent' : 'aliceblue',
             })}
             >
-          Account
+          Settings
+        </NavLink>
+        <NavLink to="/Landing"
+          style={({ isActive }) => ({
+            color: isActive ? 'transparent' : 'aliceblue',
+        })}
+        >
+          Links
         </NavLink>
       </NavbarContainer>
       <Outlet />

@@ -7,6 +7,7 @@ import { Title, DashboardGrid, StatsStyledCol, ImageStyledCol, GalleryStyledCol 
 import AnimatedPage from "../../animation/AnimatedPage";
 
 const Dashboard = () => {
+
   const [userName, setUserName] = useState("");
   const [userGallery, setUserGallery] = useState([]);
   const [count , setCount] = useState("");
@@ -20,14 +21,14 @@ const Dashboard = () => {
       if (localName !== null) {
         setUserName(localName.data.username);
       } else {
-        window.location.href = "/login"
-        alert("userName not set")
+        alert("Must be Admin to access this page")
+        window.location.href = "/landing"
       }}
 
     async function fetchGallery() {
       //SENDS userName AS A SEARCH PARAMETER TO CLOUDINARY
-      const req = await fetch(`https://photo-mode.herokuapp.com/api/cloudinary/usergallery?folderData=${userName}`, )
-        // const req = await fetch(`http://localhost:8080/api/cloudinary/usergallery?folderData=${userName}`)
+      // const req = await fetch(`https://photo-mode.herokuapp.com/api/cloudinary/usergallery?folderData=${userName}`, )
+        const req = await fetch(`http://localhost:8080/api/cloudinary/usergallery?folderData=${userName}`)
  
       const data = await req.json();
       

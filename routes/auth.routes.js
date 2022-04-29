@@ -2,11 +2,35 @@ const express = require("express");
 const router = express.Router();
 const dotenv = require("dotenv");
 const User = require("../models/user.model");
+const Post = require("../models/post.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 dotenv.config();
 
+//CREATE POST
+router.post("/newPost", async (req, res) => {
+  console.log(req.body);
+  User.updateOne(
+    { email: req.body.email },
+    { $set: { bio: req.body.bio, title: req.body.title, tags: req.body.tags } }
+  ).then();
+  return res.json({ status: "ok", bio: req.body.bio });
+});
+// router.post("/newpost", async (req, res) => {
+//   try {
+//     //BCRYPT HASHING PASSWORD BEFORE GETTING STORED IN DATABASE
+//     const newPassword = await bcrypt.hash(req.body.password, 10);
+//     await User.create({
+//       username: req.body.username,
+//       email: req.body.email,
+//       password: newPassword,
+//     });
+//     res.json({ status: "ok" });
+//   } catch (err) {
+//     res.json({ status: "error", error: err });
+//   }
+// });
 // USER DATA //////////////////////////////////////////////////////////////////////////
 router.post("/signup", async (req, res) => {
   try {
@@ -54,7 +78,7 @@ router.post("/signin", async (req, res) => {
         accessToken: token,
       });
     } else {
-      return res.json({ status: "error", user: false });
+      return res.json({ status: "error", user: true });
     }
   } catch (err) {
     res.json({ error: "login failed" });

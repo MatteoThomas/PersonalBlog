@@ -6,14 +6,11 @@ import { GlobalStyles } from "./GlobalStyles.style.jsx"
 import { StyledAppContainer }from "./components/Container/Container.style"
 import Fallback from "./components/Fallback"
 
+
 const Nav = lazy(() => import("./components/Nav/Nav"));
-// import Nav from "./components/Nav/Nav"
-const Hero = lazy(() => import("./components/Hero/Hero"));
-// import Hero from "./components/Hero/Hero"
+const Landing= lazy(() => import("./pages/Landing/Landing"));
 const Login = lazy(() => import("./pages/Login/Login"));
 // import Login from "./pages/Login/Login";
-const Register = lazy(() => import("./pages/Register/Register"));
-// import Register from "./pages/Register/Register";
 const Explore = lazy(() => import("./pages/Explore/Explore"));
 // import Explore from "./pages/Explore/Explore";
 const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
@@ -24,42 +21,37 @@ const Account = lazy(() => import("./pages/Account/Account"));
 const App = () => {
   const [header, setHeader] = useState(false);
   const location = useLocation();
-
+  const [user, setUser] = useState(false)
   useEffect(() => {
-    const user= localStorage.getItem("user");
-    if (!user) {
+    if (localStorage.getItem("user")) {
+      setUser(true)
+      setHeader(true);
+    } else if (user) {
         setHeader(false);
-      } else if (user) {
-        setHeader(true);
       
     }
   }, []);
   
   //CONDITIONALLY RENDER NAV OR HEADER
-  const renderHeader = header ? (
-    <Nav />  
-  ) : (
-   
-      <Hero />
+
     
-  );
+
   return (
-          <Suspense fallback={<Fallback/>}>
-    <StyledAppContainer>
-      <GlobalStyles />
-      {renderHeader} 
-      <AnimatePresence exitBeforeEnter initial={true}>          
+    <Suspense fallback={<Fallback/>}>
+      <StyledAppContainer>
+        <GlobalStyles />
+   
+        <AnimatePresence exitBeforeEnter initial={true}>          
           <Routes location={location} key={location.pathname}>
-            <Route path="/login" exact element={<Login />} />
-            <Route path="/register" exact element={<Register />} />
-            <Route path="/explore" exact element={<Explore />} />
-            <Route path="/dashboard" exact element={<Dashboard />} />
-            <Route path="/account" exact element={<Account />} />  
-            <Route path="*" element={<Login />} />
+            <Route path="/login" exact element={<Login/>} />
+            <Route path="/dashboard" exact element={<Dashboard/>} />
+            <Route path="/explore" exact element={<><Nav/><Explore/></>} />
+            <Route path="/account" exact element={<><Nav/><Account/></>} />  
+            <Route path="*" element={<Landing />} />
           </Routes>
         </AnimatePresence>
-    </StyledAppContainer>
-            </Suspense>
+      </StyledAppContainer>
+    </Suspense>
   );
 };
 
